@@ -11,18 +11,18 @@ import java.util.UUID;
 @RequestMapping("/participants")
 public class ParticipantController {
     @Autowired
-    private ParticipantRepository participantRepository;
+    private ParticipantService participantService;
 
     @PostMapping("/{id}/confirm")
     public ResponseEntity<Participant> confirmParticipant(@PathVariable UUID id, @RequestBody ParticipantRequestPayload payload) {
-        Optional<Participant> participant = this.participantRepository.findById(id);
+        Optional<Participant> participant = this.participantService.findById(id);
 
         if (participant.isPresent()) {
             Participant rawParticipant = participant.get();
             rawParticipant.setIsConfirmed(true);
             rawParticipant.setName(payload.name());
 
-            this.participantRepository.save(rawParticipant);
+            this.participantService.save(rawParticipant);
 
             return ResponseEntity.ok(rawParticipant);
         }
