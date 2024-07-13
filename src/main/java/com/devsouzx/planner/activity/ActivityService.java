@@ -15,6 +15,10 @@ public class ActivityService {
     public ActivityResponse registerActivity(ActivityRequestPayload payload, Trip rawTrip) {
         Activity newActivity = new Activity(payload.title(), payload.occurs_at(), rawTrip);
 
+        if (newActivity.getOccursAt().isAfter(rawTrip.getEndsAt()) || newActivity.getOccursAt().isBefore(rawTrip.getStartsAt())) {
+            throw new ActivityException("The activity date must be between the trip start and end dates.");
+        }
+
         this.activityRepository.save(newActivity);
 
         return new ActivityResponse(newActivity.getId());

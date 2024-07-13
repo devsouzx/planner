@@ -1,5 +1,6 @@
 package com.devsouzx.planner.participant;
 
+import com.devsouzx.planner.trip.EntityNotFoundException;
 import com.devsouzx.planner.trip.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,13 @@ public class ParticipantService {
     }
 
     public Optional<Participant> findById(UUID id) {
-        return this.participantRepository.findById(id);
+        Optional<Participant> participant = this.participantRepository.findById(id);
+
+        if (participant.isEmpty()) {
+            throw new EntityNotFoundException("Participant not found");
+        }
+
+        return participant;
     }
 
     public void save(Participant participant) {
