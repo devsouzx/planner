@@ -1,8 +1,8 @@
 package com.devsouzx.planner.infra;
 
-import com.devsouzx.planner.activity.ActivityException;
-import com.devsouzx.planner.trip.TripException;
-import com.devsouzx.planner.trip.EntityNotFoundException;
+import com.devsouzx.planner.infra.exceptions.ActivityException;
+import com.devsouzx.planner.infra.exceptions.TripException;
+import com.devsouzx.planner.infra.exceptions.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
